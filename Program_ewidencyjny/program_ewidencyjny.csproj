@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{30D53255-287B-408E-816E-9A6DEF02D535}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Praca_inzynierska</RootNamespace>
+    <AssemblyName>Praca_inzynierska</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignColors, Version=1.2.2.920, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignColors.1.2.2\lib\net45\MaterialDesignColors.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignThemes.Wpf, Version=3.0.1.920, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignThemes.3.0.1\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.1016.290\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Converters\CountZeroToOneConverter.cs" />
+    <Compile Include="Converters\EmptyStringToPercentConverter.cs" />
+    <Compile Include="Converters\EnumToStringConverter.cs" />
+    <Compile Include="Converters\StringToDoubleConverter.cs" />
+    <Compile Include="Model\InitalizationTables\UzytkownikInitalization.cs" />
+    <Compile Include="Others\AddNumber.cs" />
+    <Compile Include="Others\JobToViewAndEdit.cs" />
+    <Compile Include="Model\DomainConfig\RodzPracyEntityConfiguration.cs" />
+    <Compile Include="Model\DomainConfig\WysylkaEntityConfiguration.cs" />
+    <Compile Include="Model\Domain\RodzPracy.cs" />
+    <Compile Include="Model\Domain\Wysylka.cs" />
+    <Compile Include="Model\InitalizationTables\AsortzmentInitialization.cs" />
+    <Compile Include="Model\InitalizationTables\ClInitalization.cs" />
+    <Compile Include="Model\InitalizationTables\GminaInitalization.cs" />
+    <Compile Include="Model\InitalizationTables\ObrebInitialization.cs" />
+    <Compile Include="Model\InitalizationTables\PrefixInitialization.cs" />
+    <Compile Include="Model\InitalizationTables\RodzPracyInitalization.cs" />
+    <Compile Include="Model\InitalizationTables\StatusInitialization.cs" />
+    <Compile Include="Model\InitalizationTables\SuInitialization.cs" />
+    <Compile Include="Model\InitalizationTables\WysylkaInitialization.cs" />
+    <Compile Include="ViewModel\AddContarctorViewModel.cs" />
+    <Compile Include="ViewModel\AddEditJobBaseViewModel.cs" />
+    <Compile Include="ViewModel\AddJobViewModel.cs" />
+    <Compile Include="ViewModel\BaseJobViewModel.cs" />
+    <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\Command\CommandHandler.cs" />
+    <Compile Include="ViewModel\Command\CommandHandlerAsync.cs" />
+    <Compile Include="ViewModel\Command\PasswordBoxDependency.cs" />
+    <Compile Include="ViewModel\EditJobViewModel.cs" />
+    <Compile Include="ViewModel\Login.cs" />
+    <Compile Include="ViewModel\JobViewModel.cs" />
+    <Compile Include="ViewModel\OperatViewModel.cs" />
+    <Compile Include="ViewModel\PriceListViewModel.cs" />
+    <Compile Include="View\AddContractorView.xaml.cs">
+      <DependentUpon>AddContractorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AddJob.xaml.cs">
+      <DependentUpon>AddJob.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EditJobViev.xaml.cs">
+      <DependentUpon>EditJobViev.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\JobView.xaml.cs">
+      <DependentUpon>JobView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\OperatView.xaml.cs">
+      <DependentUpon>OperatView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PriceListView.xaml.cs">
+      <DependentUpon>PriceListView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="View\AddContractorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AddJob.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EditJobViev.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LoginWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\JobView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\OperatView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PriceListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Model\DomainConfig\AjEntityConfiguration.cs" />
+    <Compile Include="Model\DomainConfig\AsortymentEntityConfiguration.cs" />
+    <Compile Include="Model\DomainConfig\CennikEntityConfiguration.cs" />
+    <Compile Include="Model\DomainConfig\ClEntityConfiguration.cs" />
+    <Compile Include="Model\DomainConfig\DokumentEntityConfiguration.cs" />
+    <Compile Include="Model\DomainConfig\GminaEntityConfiguration.cs" />
+    <Compile Include="Model\DomainConfig\KosztorysEntityConfiguration.cs" />
+    <Compile Include="Model\DomainConfig\KWspolEntityConfiguration.cs" />
+    <Compile Include="Model\DomainConfig\ObrebEntityConfiguration.cs" />
+    <Compile Include="Model\DomainConfig\OperatEntityConfiguration.cs" />
+    <Compile Include="Model\DomainConfig\PdWspolEntityConfiguration.cs" />
+    <Compile Include="Model\DomainConfig\PolozenieEntityConfiguration.cs" />
+    <Compile Include="Model\DomainConfig\PracaEntityConfiguration.cs" />
+    <Compile Include="Model\DomainConfig\PrefixEntityConfiguration.cs" />
+    <Compile Include="Model\DomainConfig\StatusEntityConfiguration.cs" />
+    <Compile Include="Model\DomainConfig\SuWspolEntityConfiguration.cs" />
+    <Compile Include="Model\DomainConfig\TWspolEntityConfiguration.cs" />
+    <Compile Include="Model\DomainConfig\UzytkownikEntityConfiguration.cs" />
+    <Compile Include="Model\DomainConfig\WykonawcaEntityConfiguration.cs" />
+    <Compile Include="Model\DomainConfig\X_YEntityConfiguration.cs" />
+    <Compile Include="Model\Domain\AjWspol.cs" />
+    <Compile Include="Model\Domain\Asortyment.cs" />
+    <Compile Include="Model\Domain\Cennik.cs" />
+    <Compile Include="Model\Domain\ClWspol.cs" />
+    <Compile Include="Model\Domain\PracaIzynierskaDBContext.cs" />
+    <Compile Include="Model\Domain\Dokument.cs" />
+    <Compile Include="Model\Domain\KWspol.cs" />
+    <Compile Include="Model\Domain\Kosztorys.cs" />
+    <Compile Include="Model\Domain\Obreb.cs" />
+    <Compile Include="Model\Domain\Gmina.cs" />
+    <Compile Include="Model\Domain\Operat.cs" />
+    <Compile Include="Model\Domain\PdWspol.cs" />
+    <Compile Include="Model\Domain\Polozenie.cs" />
+    <Compile Include="Model\Domain\Status.cs" />
+    <Compile Include="Model\Domain\SuWspol.cs" />
+    <Compile Include="Model\Domain\TWspol.cs" />
+    <Compile Include="Model\Enum\CelPracy.cs" />
+    <Compile Include="Model\Enum\InfoODostepie.cs" />
+    <Compile Include="Model\Enum\SposobPozyskania.cs" />
+    <Compile Include="Model\Enum\TypMaterialu.cs" />
+    <Compile Include="Model\Domain\Uzytkownik.cs" />
+    <Compile Include="Model\Domain\Wykonawca.cs" />
+    <Compile Include="Model\Domain\X_Y.cs" />
+    <Compile Include="Model\Domain\Praca.cs" />
+    <Compile Include="Model\Domain\Prefix.cs" />
+    <Compile Include="Model\Enum\CharakterOb.cs" />
+    <Compile Include="Model\Enum\KatArchiw.cs" />
+    <Compile Include="Model\Enum\NazwaDok.cs" />
+    <Compile Include="Model\Enum\NazwaMat.cs" />
+    <Compile Include="Model\Enum\OznCzesciZasobu.cs" />
+    <Compile Include="Model\Enum\Postac.cs" />
+    <Compile Include="Model\Enum\RodzajNosnikaNielektroniczny.cs" />
+    <Compile Include="Model\Enum\RodzajPracy.cs" />
+    <Compile Include="Model\InitalizationTables\AjInitalization.cs" />
+    <Compile Include="Model\InitalizationTables\CennikInitalization.cs" />
+    <Compile Include="Model\InitalizationTables\KInitalization.cs" />
+    <Compile Include="Model\InitalizationTables\PdInitialization.cs" />
+    <Compile Include="Model\InitalizationTables\PracaInzynierskaDBConextInitalization.cs" />
+    <Compile Include="Model\InitalizationTables\TInitialization.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\MaterialDesignThemes.3.0.1\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.3.0.1\build\MaterialDesignThemes.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\MaterialDesignThemes.3.0.1\build\MaterialDesignThemes.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MaterialDesignThemes.3.0.1\build\MaterialDesignThemes.targets'))" />
+  </Target>
+</Project>

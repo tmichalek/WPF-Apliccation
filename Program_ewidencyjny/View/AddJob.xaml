@@ -1,0 +1,101 @@
+﻿<Window x:Class="program_ewidencyjny.View.AddJob"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:program_ewidencyjny.View"
+        xmlns:zg="clr-namespace:program_ewidencyjny.ViewModel"
+        mc:Ignorable="d"
+        Title="Zgoszenie pracy" Height="600" Width="800">
+    <Window.Resources>
+        <zg:AddJobViewModel x:Key="addJob"/>
+        <Style x:Key="TextErrorStyle" TargetType="{x:Type TextBox}">
+        <Setter Property="Validation.ErrorTemplate">
+            <Setter.Value>
+                <ControlTemplate x:Name="TextErrorTemplate">
+                    <DockPanel LastChildFill="True">
+                        <AdornedElementPlaceholder>
+                            <Border BorderBrush="Red" BorderThickness="2"/>
+                        </AdornedElementPlaceholder>
+                        <TextBlock FontSize="20" Foreground="Red">*!*</TextBlock>
+                    </DockPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="Validation.HasError" Value="True">
+                <Setter Property="BorderBrush" Value="Red"/>
+                    <Setter Property="BorderThickness" Value="3"/>
+                    <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self},Path=(Validation.Errors)[0].ErrorContent}"></Setter>
+            </Trigger>
+        </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ComboErrorStyle" TargetType="{x:Type ComboBox}">
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate x:Name="ComboErrorTemplate">
+                        <DockPanel LastChildFill="True">
+                            <AdornedElementPlaceholder>
+                                <Border BorderBrush="Red" BorderThickness="2"/>
+                            </AdornedElementPlaceholder>
+                            <TextBlock FontSize="20" Foreground="Red">*!*</TextBlock>
+                        </DockPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            
+        </Style>
+
+    </Window.Resources>
+
+    <Grid DataContext="{StaticResource addJob}" >
+
+
+        <Label Content="prefiks:" Margin="20 20 0 0" MinWidth="40" MinHeight="30" HorizontalAlignment="Left" VerticalAlignment="Top"></Label>
+        <TextBox Text="6640"  Margin="70 20 0 0" MinWidth="40" MinHeight="30" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></TextBox>
+        <TextBox x:Name="AddJobNumber"  HorizontalAlignment="Left" Height="23" Margin="214,24,0,0" TextWrapping="Wrap" IsEnabled="False" Text="{Binding Path=numberOfJob, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="427,26,0,0" TextWrapping="Wrap" IsEnabled="False" Text="{Binding Path=currentYear, Mode=OneWay}" VerticalAlignment="Top" Width="120"/>
+        <DatePicker HorizontalAlignment="Left" Margin="158,90,0,0"  VerticalAlignment="Top" Text="{Binding dateOfJob, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+
+        <DatePicker HorizontalAlignment="Left" Margin="467,89,0,0" VerticalAlignment="Top" Text="{Binding dateOfJobEnd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"/>
+        <ComboBox   HorizontalAlignment="Left" Margin="140,170,0,0" VerticalAlignment="Top" Width="120" Style="{StaticResource ComboErrorStyle}" ItemsSource="{Binding charakterOb, Mode=OneWay}"  SelectedValue="{Binding Path=charOfJob, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"/>
+
+
+        <ComboBox Style="{ StaticResource ComboErrorStyle}" HorizontalAlignment="Left" Margin="402,170,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding setAsortJob, Mode=OneWay}" DisplayMemberPath="CelPracy" SelectedValue="{Binding Path=jobTarget, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="AsortymentId"/>
+        <ComboBox Style="{ StaticResource ComboErrorStyle}" HorizontalAlignment="Left" Margin="92,239,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding gmina, Mode=OneWay}" DisplayMemberPath="NazwaGmina" SelectedValue="{Binding gminaJob, Mode=OneWayToSource}" SelectedValuePath="GminaId"/>
+        <ComboBox  x:Name="DodZgl" Style="{ StaticResource ComboErrorStyle}" HorizontalAlignment="Left" Margin="368,239,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding setObrebJob, Mode=OneWay}" DisplayMemberPath="NazwaObreb" SelectedValue="{Binding obrebJob, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" SelectedValuePath="ObrebId"/>
+        <ComboBox HorizontalAlignment="Left" Margin="655,88,0,0" VerticalAlignment="Top" Width="120" Style="{StaticResource ComboErrorStyle}" ItemsSource="{Binding rodzajPracy}" SelectedIndex="0" DisplayMemberPath="RodzajPracy" SelectedValue="{Binding Path=kindOfJob, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" SelectedValuePath="RodzPracyId"/>
+        <TextBox  HorizontalAlignment="Left" Height="22" Margin="637,239,0,0" Style="{StaticResource TextErrorStyle}" VerticalAlignment="Top" Width="138" Text="{Binding jobLocality, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"/>
+
+
+        <Label Content="nr pracy" HorizontalAlignment="Left" Margin="140,24,0,0" VerticalAlignment="Top"/>
+        <Label Content="rok" HorizontalAlignment="Left" Margin="359,24,0,0" VerticalAlignment="Top" Width="39"/>
+        <Label Content="data zgłoszenia" HorizontalAlignment="Left" Margin="31,88,0,0" VerticalAlignment="Top"/>
+        <Label Content="data zakończenia prac" HorizontalAlignment="Left" Margin="323,90,0,0" VerticalAlignment="Top"/>
+        <Label Content="charakter obiektu" HorizontalAlignment="Left" Margin="20,166,0,0" VerticalAlignment="Top"/>
+        <Label Content="cel pracy" HorizontalAlignment="Left" Margin="306,166,0,0" VerticalAlignment="Top"/>
+        <Label Content="gmina" HorizontalAlignment="Left" Margin="25,235,0,0" VerticalAlignment="Top"/>
+        <Label Content="obreb" HorizontalAlignment="Left" Margin="273,239,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="plo"  HorizontalAlignment="Left" Height="23" Margin="637,165,0,0" Style="{StaticResource TextErrorStyle}"  VerticalAlignment="Top" Width="120" TextWrapping="Wrap" Text="{Binding plotJob, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" />
+
+
+        <Label Content="położenie" HorizontalAlignment="Left" Margin="541,235,0,0" VerticalAlignment="Top"/>
+        <Label Content="działka" HorizontalAlignment="Left" Margin="583,162,0,0" VerticalAlignment="Top"/>
+        <DataGrid HorizontalAlignment="Left" Height="150" Margin="33,305,0,0" VerticalAlignment="Top" Width="726" ItemsSource="{Binding contractor}" IsSynchronizedWithCurrentItem="True"  SelectedValue="{Binding jobContractor, Mode=OneWayToSource}" SelectedValuePath="WykonawcaId">
+
+        </DataGrid>
+        <Label Content="wykonawca" HorizontalAlignment="Left" Margin="306,278,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.197,-1.038"/>
+
+        <Label Content="Rodzaj pracy" HorizontalAlignment="Left" Margin="578,90,0,0" VerticalAlignment="Top"/>
+        <Button Content="Zapisz" HorizontalAlignment="Left" Margin="158,519,0,0" VerticalAlignment="Top" Width="165" Command="{Binding AddJobToDatabase, ValidatesOnNotifyDataErrors=False}" Height="28"/>
+        <Button Content="Anuluj" HorizontalAlignment="Left" Margin="443,519,0,0" VerticalAlignment="Top" Width="165" Command="{Binding CloseAddEditJobWin, ValidatesOnNotifyDataErrors=False}" Height="28"/>
+        <Label Content="Wybrany wykonawca" HorizontalAlignment="Left" Margin="25,469,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox HorizontalAlignment="Left" Height="30" Margin="165,473,0,0" ItemsSource="{Binding contractor, ValidatesOnNotifyDataErrors=False}"  DisplayMemberPath="NazwaFirmy" IsSynchronizedWithCurrentItem="True" VerticalAlignment="Top" Width="212"/>
+
+        <Button Content="Dodaj nowego wykonawce" HorizontalAlignment="Left" Margin="443,472,0,0" VerticalAlignment="Top" Width="155" Height="24" Command="{Binding OpenNewContractorWin, ValidatesOnNotifyDataErrors=False}"/>
+
+
+    </Grid>
+</Window>

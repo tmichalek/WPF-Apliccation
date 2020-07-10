@@ -1,0 +1,70 @@
+﻿<Window x:Class="program_ewidencyjny.View.PriceListView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:program_ewidencyjny.View"
+        xmlns:p="clr-namespace:program_ewidencyjny.ViewModel"
+        xmlns:c="clr-namespace:program_ewidencyjny.Converters"
+        mc:Ignorable="d"
+        Title="PriceListView" Height="450" Width="800">
+    <Window.Resources>
+        <p:PriceListViewModel x:Key="PriceListVM"/>
+        <c:CountZeroToOneConverter x:Key="setOne"/>
+        <c:StringToDoubleConverter x:Key="setDouble"/>
+    </Window.Resources>
+    <Grid DataContext="{StaticResource PriceListVM}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="1" >
+            <WrapPanel DockPanel.Dock="Top" > 
+                <ComboBox Width="50" ItemsSource="{Binding priceList}" DisplayMemberPath="NrCennika" IsSynchronizedWithCurrentItem="True" SelectedValue="{Binding priceListNumber, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" />
+                <ComboBox Width="50" ItemsSource="{Binding priceList}" DisplayMemberPath="Pozycja" SelectedValue="{Binding selectedValueWspol, Mode=OneWayToSource}" SelectedValuePath="Pozycja" IsSynchronizedWithCurrentItem="True"/>
+                <ComboBox Width="50" ItemsSource="{Binding priceList}" DisplayMemberPath="Nazwa" IsSynchronizedWithCurrentItem="True" IsEditable="False" SelectedValue="{Binding priceListName, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Nazwa"/>
+                <TextBox Width="50" Text="{Binding quantity, Mode=OneWayToSource, Converter={StaticResource setOne}, UpdateSourceTrigger=PropertyChanged}"/>
+                <ComboBox Width="50" ItemsSource="{Binding priceList, Mode=OneWay, Converter={StaticResource setOne}}" DisplayMemberPath="Cena" IsSynchronizedWithCurrentItem="True" IsEditable="False" SelectedValue="{Binding price, Mode=OneWayToSource}" SelectedValuePath="Cena" />
+                <ComboBox 
+                    Width="50" ItemsSource="{Binding priceListAj, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource setOne},Mode=OneWay}" DisplayMemberPath="Aj"
+                     SelectedValue="{Binding selectedAj, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+
+
+                <ComboBox Width="50"  ItemsSource="{Binding priceListPd, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource setOne}, Mode=OneWay}" DisplayMemberPath="Pd" SelectedValue="{Binding selectedPd, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+                <ComboBox Width="50" ItemsSource="{Binding priceListSu, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource setOne}}" DisplayMemberPath="Su" SelectedValue="{Binding selectedSu, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" />
+                <ComboBox Width="50" ItemsSource="{Binding priceListK}" DisplayMemberPath="K" SelectedValue="{Binding selectedK, Mode=TwoWay}" SelectedValuePath="KId" IsEnabled="False" />
+                <ComboBox Width="50" ItemsSource="{Binding priceListCl }" DisplayMemberPath="Cl" SelectedValue="{Binding selectedCl, Mode=TwoWay}" SelectedValuePath="ClId" IsEnabled="False"/>
+                <TextBox Width="50" Text="{Binding rowPrice, StringFormat=N2}"  />
+            </WrapPanel>
+            <Button DockPanel.Dock="Bottom" Width="200" Height="40" Content="Dodaj do cennika" Command="{Binding AddPriceListToDataBase}"/>
+        </DockPanel>
+        <DockPanel Grid.Row="3">
+        <StackPanel Grid.Row="3" DockPanel.Dock="top">
+                <WrapPanel>
+        <ComboBox  HorizontalAlignment="Left" VerticalAlignment="Center"
+                      ItemsSource="{Binding priceListSend}" DisplayMemberPath="Opis" SelectedValue="{Binding selectedSend, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
+                <TextBox  Text="{Binding sendPrice, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                </WrapPanel>
+                <WrapPanel>
+                <Label Content="Łączna kwota" HorizontalAlignment="Left"/>
+            <TextBox Text="{Binding sumPrice, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right"/>
+                </WrapPanel>
+            </StackPanel>
+            <Button DockPanel.Dock="Bottom" Width="200" Height="30" Content="Zapisz DOO" Command="{Binding SavingDOO}"/>
+        </DockPanel>
+        <StackPanel Grid.Row="2">
+            <DataGrid ItemsSource="{Binding addedToDataBase, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Pozycja" Binding="{Binding Path=Pozycja}"/>
+                    <DataGridTextColumn Header="Nazwa" Binding="{Binding Path=Nazwa}"/>
+                    <DataGridTextColumn Header="Ilość" Binding="{Binding Path=Ilosc}"/>
+                    <DataGridTextColumn Header="Cena" Binding="{Binding Path=Cena}" Width="*"/>
+                    
+                </DataGrid.Columns>
+            </DataGrid>
+            
+        </StackPanel>
+    </Grid>
+</Window>

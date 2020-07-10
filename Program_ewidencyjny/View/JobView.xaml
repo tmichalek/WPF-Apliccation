@@ -1,0 +1,158 @@
+﻿<Window x:Class="program_ewidencyjny.View.JobView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:program_ewidencyjny.View"
+        xmlns:zg="clr-namespace:program_ewidencyjny.ViewModel"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:con="clr-namespace:program_ewidencyjny.Converters"
+        mc:Ignorable="d"
+        Title="Zgloszenie Pracy Geodezyjnej"  Height="1280" Width="1024">
+
+    <Window.Resources>
+        <zg:JobViewModel x:Key="zglos"/>
+        <con:EnumToStringConverter x:Key="zero"/>
+        <con:EmptyStringToPercentConverter x:Key="all"/>
+
+    </Window.Resources>
+
+    <Grid DataContext="{StaticResource zglos}" Margin="0,-2,0,2">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="683*"/>
+            <RowDefinition Height="Auto" MinHeight="51"/>
+            <RowDefinition Height="Auto" MinHeight="26" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="342*" />
+        </Grid.RowDefinitions>
+
+
+        <Label Grid.Row="2" Content="SZUKAJ ZGŁOSZONEJ ROBOTY" HorizontalAlignment="Center" Margin="421,0" Width="174" ></Label>
+
+
+        <DataGrid x:Name="ViewJobGrid" IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow" Grid.Row="0" Margin="18,8,2,12" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AutoGenerateColumns="False" ItemsSource="{Binding jobView ,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsSynchronizedWithCurrentItem="True" SelectedValue="{Binding selectedJobToEdit, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="PracaId">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nr kancelaryjny"  Binding="{Binding Path=Prefiks}"  />
+                <DataGridTextColumn Header="Nr roboty" Binding="{Binding Path=Numer}" />
+                <DataGridTextColumn Header="Rok" Binding="{Binding Path=Rok}" />
+                <DataGridTextColumn Header="Wykonawca" Binding="{Binding Path=NazwaFirmy}" />
+                <DataGridTextColumn Header="Gmina" Binding="{Binding Path=NazwaGmina}" />
+                <DataGridTextColumn Header="Nr obrebu" Binding="{Binding Path=NazwaObreb}" />
+                <DataGridTextColumn Header="Polożenie" Binding="{Binding Path=PolozenieOpis}" />
+                <DataGridTextColumn Header="Nr dzialki" Binding="{Binding Path=NumerDzialki}" />
+                <DataGridTextColumn Header="Asortyment" Binding="{Binding Path=CelPracy}"  />
+                <DataGridTemplateColumn Header="Data rozpoczęcia pracy" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DatePicker  SelectedDate="{Binding Path=DataZgloszenia, Mode=OneWay, StringFormat='dd-MM-yyyy'}"   />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Data zakończenia prac">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DatePicker SelectedDateFormat="Short"  SelectedDate="{Binding Path=DataZakonczeniaPrac, Mode=OneWay}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <!--<DataGridComboBoxColumn Header="Status" Width="*" >
+                    <DataGridComboBoxColumn.ElementStyle>
+                        <Style TargetType="{x:Type ComboBox}">
+                            <Setter Property="ItemsSource" Value="{Binding jobView}"/>
+                            <Setter Property="DisplayMemberPath" Value="{Binding NazwaStatus}"/>
+                        </Style>
+                    </DataGridComboBoxColumn.ElementStyle>
+                    </DataGridComboBoxColumn>-->
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label Content="Status" HorizontalAlignment="Right" Margin="0,25,651,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="1.369,0.769" Height="26" Width="42"/>
+        <ComboBox ItemsSource="{Binding jobView}" IsEditable="False" IsSynchronizedWithCurrentItem="True" DisplayMemberPath="NazwaStatus"  HorizontalAlignment="Right" Margin="0,25,511,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Height="auto" VerticalContentAlignment="Center"/>
+        <Label Content="Charakter obiektu" HorizontalAlignment="Right" Margin="0,25,871,0" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="104"/>
+        <ComboBox ItemsSource="{Binding jobView}" IsEditable="False" IsSynchronizedWithCurrentItem="True" DisplayMemberPath="CharakterOb" HorizontalAlignment="Right" Margin="0,29,731,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Height="auto" VerticalContentAlignment="Center"/>
+
+
+        <TextBox x:Name="numer" Margin="110,29,0,0" Grid.Row="4" Text="{Binding Path=findJob,Converter={StaticResource all}, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Width="120" Height="25" VerticalAlignment="Top" Grid.RowSpan="2">
+
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="TextChanged">
+                    <i:InvokeCommandAction Command="{Binding numerPracy }"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </TextBox>
+
+        <TextBox Margin="110,0,0,5" Grid.Row="5" TextWrapping="Wrap" Text="{Binding Path=findYear, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource all}}" HorizontalAlignment="Left" Width="120"  VerticalAlignment="Bottom" Height="18">
+
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="TextChanged">
+                    <i:InvokeCommandAction Command="{Binding numerPracy }"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </TextBox>
+
+        <TextBox Margin="478,0,418,5" MinWidth="120" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Row="4" TextWrapping="Wrap" Text="{Binding Path=survey, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" Height="18" Width="120" >
+
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="TextChanged">
+                    <i:InvokeCommandAction Command="{Binding numerPracy }"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+
+        </TextBox>
+
+        <ComboBox  Margin="473,0,413,5" MinWidth="130" Grid.Row="5" ItemsSource="{Binding asortyment}" SelectedValue="{Binding Path=asort, Converter={StaticResource zero}, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" Height="22" VerticalAlignment="Bottom" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Width="130" >
+
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding numerPracy }"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ComboBox>
+
+        <TextBox Height="22" Margin="0,0,96,5" Grid.Row="4"  Text="{Binding Path=plot, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource all }}"  MinWidth="130" VerticalAlignment="Bottom" HorizontalAlignment="right" Width="130">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="TextChanged">
+                    <i:InvokeCommandAction Command="{Binding numerPracy }"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </TextBox>
+
+        <ComboBox x:Name="Obreby" Margin="0,0,96,5" Grid.Row="5" ItemsSource="{Binding obreby}" SelectedValue="{Binding Path=obr, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource all}}" HorizontalAlignment="Right" MinWidth="130" VerticalAlignment="Bottom" Height="22" Width="130" >
+
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding numerPracy }"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ComboBox>
+
+
+        <Label x:Name="nrRob" Content="Podaj nr roboty" Margin="10,25,0,0" Grid.Row="4" HorizontalAlignment="Left" Width="110" Height="26" VerticalAlignment="Top"/>
+        <Label x:Name="Wyk" Content="Podaj wykonawcę" Margin="353,25,553,0" Grid.Row="4" HorizontalAlignment="center" Width="110" Height="25" VerticalAlignment="top" />
+        <Label x:Name="Asort" Content="Podaj nazwę asort." Margin="354,0,554,5" Grid.Row="5"  Height="26" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="108"/>
+        <Label x:Name="Obreb" Content="Podaj nazwe obrębu"  Margin="0,23,250,5" Grid.Row="5" HorizontalAlignment="Right" Width="118" />
+        <Label x:Name="Dzialka" Content="Podaj nr dzialki" Margin="0,22,250,5" Grid.Row="4" HorizontalAlignment="Right" MinWidth="120" Width="120"/>
+        <Label x:Name="Rok" Content="Podaj Rok" Margin="10,23,0,0" Grid.Row="5" HorizontalAlignment="Left" Width="110" Height="26" VerticalAlignment="Top" />
+        <!-- <Border Grid.Row="2" Background="#AAA" Panel.ZIndex="-1" HorizontalAlignment="Stretch"  Grid.RowSpan="4"/>-->
+        <!--<Button Content="Button" HorizontalAlignment="Left" Margin="244,109,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Command="{Binding numerPracy}"/>-->
+        <Button x:Name="Dodaj" Content="Dodaj zgloszenie" Grid.Row="6" Margin=" 60 20 0 0" HorizontalAlignment="Left" VerticalAlignment="Top" MinWidth="200" Command="{Binding AddJobWindow}" Height="auto" Width="200"></Button>
+        <Button x:Name="Edytuj" Content="Edytuj zgloszenie" Grid.Row="6" Margin="408,20,408,0" HorizontalAlignment="Center" VerticalAlignment="Top" MinWidth="200" Command="{Binding EditJob}" Height="auto" Width="200" >
+            <Button.Triggers>
+
+
+            </Button.Triggers>
+        </Button>
+        <Button x:Name="Usun" Content="Usun zgloszenie" Grid.Row="6"  Margin=" 0 20 60 0" HorizontalAlignment="Right" VerticalAlignment="top" MinWidth="200" Height="auto" Width="200"></Button>
+        <Label Content="DOO numer" HorizontalAlignment="Left" Margin="36,32,0,0" Grid.Row="7" VerticalAlignment="Top" Height="26" Width="84"/>
+        <Label Content="Label" HorizontalAlignment="Left" Margin="150,32,0,0" Grid.Row="7" VerticalAlignment="Top" Height="26" Width="38"/>
+        <Label Content="Kwota" HorizontalAlignment="Left" Margin="222,32,0,0" Grid.Row="7" VerticalAlignment="Top" Height="26" Width="42"/>
+        <Button Content="Dodaj DOO" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="408,35,408,0" Grid.Row="7" MinWidth="200" Height="auto" Command="{Binding AddPriceList}"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="300,35,0,0" Grid.Row="7" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Przyjmij operat" Grid.Row="7" Width="200" HorizontalAlignment="Right" VerticalAlignment="Top" Height="auto" Margin="0,35,60,0" Command="{Binding AddOperatWindow}"/>
+
+    </Grid>
+
+</Window>
